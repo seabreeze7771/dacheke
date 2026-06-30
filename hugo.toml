@@ -1,7 +1,7 @@
 # 站点基础配置
-# 部署到 Cloudflare Pages 后，请将 baseURL 改为你的实际域名
-# （如 https://dacheke-blog.pages.dev/ 或绑定的自定义域名）
-baseURL = "https://dacheke-blog.pages.dev/"
+# GitHub Pages 地址（用户名.github.io/仓库名/）
+# 本地预览时 hugo server 会自动用 http://localhost:1313/，不受影响
+baseURL = "https://seabreeze7771.github.io/dacheke/"
 defaultContentLanguage = "zh-cn"
 locale = "zh-cn"
 title = "我的博客"

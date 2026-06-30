@@ -1,50 +1,44 @@
-# 部署到 Cloudflare Pages
+# 部署到 GitHub Pages
 
-## 一、推送到 GitHub
+本仓库通过 **GitHub Actions** 自动构建 Hugo 站点并发布到 GitHub Pages。
+推送到 `main` 分支即触发部署。
 
-先在 GitHub 创建一个空仓库（例如 `dacheke-blog`，**不要**勾选初始化 README），然后：
+## 一次性设置（只需做一次）
 
-```bash
-git remote add origin https://github.com/<你的用户名>/dacheke-blog.git
-git branch -M main
-git push -u origin main
-```
+### 1. 开启 Pages 源为 GitHub Actions
 
-## 二、在 Cloudflare 创建项目
+仓库 → **Settings → Pages** → **Build and deployment** → **Source** 选 **GitHub Actions**。
 
-1. 登录 [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **创建** → **Pages** → **连接到 Git**
-2. 授权并选择上面的 GitHub 仓库
-3. 构建配置：
-   - **框架预设**：Hugo
-   - **构建命令**：`hugo --gc --minify`
-   - **构建输出目录**：`public`
-4. **环境变量**（在「设置 → 环境」里添加）：
-   - `HUGO_VERSION` = `0.163.3`
-5. **保存并部署**
+### 2. 给 workflow 写权限
 
-部署成功后会得到一个 `https://<项目名>.pages.dev` 地址。
+仓库 → **Settings → Actions → General** → 滚到底部 **Workflow permissions**：
+- 选 **Read and write permissions**
+- 保存
 
-## 三、baseURL 说明
+> 不开这个权限，部署步骤会因 `pages: write` 权限不足而失败。
 
-`hugo.toml` 中的 `baseURL` 当前为占位值 `https://dacheke-blog.pages.dev/`。
+## 部署流程
 
-- 若 Cloudflare 项目名不同，或绑定了自定义域名，请把它改成实际地址。
-- 也可不修改 `hugo.toml`，而把构建命令改为 `hugo --gc --minify --baseURL $URL`，让每次部署自动使用当前部署地址（`$URL` 是 Cloudflare 注入的内置变量）。
+每次 `git push origin main` 后：
 
-## 四、主题（submodule）
+1. GitHub 自动运行 `.github/workflows/hugo.yml`
+2. 构建（`hugo --gc --minify`，baseURL 由 Actions 自动注入）
+3. 发布到 GitHub Pages
 
-PaperMod 以 git submodule 方式引入，`.gitmodules` 指向 GitHub 原始仓库。
-Cloudflare Pages 构建时会自动 `git submodule update --init`，无需额外操作。
+访问地址：**https://seabreeze7771.github.io/dacheke/**
 
-本地更新主题（走镜像）：
+在仓库 **Actions** 标签页可查看每次构建/部署日志。
 
-```bash
-cd themes/PaperMod
-git pull
-cd ../..
-git add themes/PaperMod
-git commit -m "更新 PaperMod 主题"
-```
+## baseURL 说明
+
+`hugo.toml` 中 `baseURL` 已设为 GitHub Pages 地址 `https://seabreeze7771.github.io/dacheke/`。
+GitHub Actions 构建时还会用 `configure-pages` 输出的 `base_url` 再次覆盖 `--baseURL`，确保地址始终正确。
+本地预览时 `hugo server` 自动用 `http://localhost:1313/`，不受影响。
+
+## 主题（submodule）
+
+PaperMod 以 git submodule 引入，`.gitmodules` 指向 GitHub 原始仓库。
+workflow 中 `actions/checkout` 已设 `submodules: recursive`，会自动拉取，无需额外操作。
 
 ---
 
