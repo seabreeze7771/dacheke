@@ -194,6 +194,48 @@ body {
    ============================================================ */
 .dacheke-section { color: var(--dacheke-green-dim); font-weight: 600; }
 
+/* 条目编号 */
+.hh-entry-no {
+  font-family: var(--hh-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--tertiary);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.hh-entry-no::before { content: "▸ "; color: var(--dacheke-green-dim); }
+
+/* 阅读时长 hover 梗 */
+.hh-readtime { cursor: help; border-bottom: 1px dotted var(--tertiary); }
+
+/* 搭车客提示区块 */
+.hh-tip {
+  margin: 2.2em 0 1.5em;
+  padding: 16px 20px;
+  background: color-mix(in srgb, var(--dacheke-green) 7%, transparent);
+  border: 1px solid var(--dacheke-green-dim);
+  border-left: 4px solid var(--dacheke-green);
+}
+.hh-tip-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.hh-tip-label {
+  font-weight: 700;
+  color: var(--dacheke-green);
+  letter-spacing: 0.05em;
+  font-size: 0.9rem;
+}
+.hh-tip-towel { font-size: 1.1rem; }
+.hh-tip-body {
+  color: var(--content);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+.hh-tip-body p:last-child { margin-bottom: 0; }
+
 /* ============================================================
    告示块
    ============================================================ */
@@ -255,14 +297,39 @@ body {
 }
 
 /* ============================================================
-   404
+   404 灵魂彩蛋（42）
    ============================================================ */
-.not-found {
-  font-size: 6rem;
-  color: var(--dacheke-green-dim);
-  letter-spacing: 0.1em;
+.hh-404 {
+  text-align: center;
+  padding: 80px 16px 120px;
 }
-.not-found-text { text-align: center; color: var(--secondary); margin-top: -1rem; font-size: 0.95rem; }
+.hh-404-number {
+  font-size: 9rem;
+  font-weight: 800;
+  color: var(--dacheke-green);
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-shadow: 0 0 40px color-mix(in srgb, var(--dacheke-green) 30%, transparent);
+}
+.hh-404-text {
+  color: var(--secondary);
+  font-size: 1rem;
+  margin: 24px 0 32px;
+  line-height: 1.7;
+}
+.hh-404-btn {
+  display: inline-block;
+  padding: 10px 24px;
+  border: 1px solid var(--dacheke-green-dim);
+  color: var(--dacheke-green);
+  text-decoration: none;
+  font-size: 0.92rem;
+  transition: background .15s, color .15s;
+}
+.hh-404-btn:hover {
+  background: var(--dacheke-green);
+  color: var(--theme);
+}
 
 /* ============================================================
    响应式
