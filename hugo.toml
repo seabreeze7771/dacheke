@@ -1,0 +1,82 @@
+# 站点基础配置
+# 部署到 Cloudflare Pages 后，请将 baseURL 改为你的实际域名
+# （如 https://dacheke-blog.pages.dev/ 或绑定的自定义域名）
+baseURL = "https://dacheke-blog.pages.dev/"
+defaultContentLanguage = "zh-cn"
+locale = "zh-cn"
+title = "我的博客"
+theme = "PaperMod"
+paginate = 10
+
+enableRobotsTXT = true
+enableEmoji = true
+buildDrafts = false
+buildFuture = false
+enableGitInfo = true
+
+# 自动生成文章最后修改时间（基于 git）
+[frontmatter]
+  lastmod = ["lastmod", ":git", "date"]
+
+[params]
+  env = "production"
+  defaultTheme = "auto"
+  description = "记录想法、笔记与技术分享"
+  author = "dacheke"
+  # 文章页功能开关
+  ShowReadingTime = true
+  ShowWordCount = true
+  ShowBreadCrumbs = true
+  ShowPostNavLinks = true
+  ShowCodeCopyButtons = true
+  ShowShareButtons = false
+  ShowToc = true
+  TocOpen = false
+  # 首页文章摘要字数
+  summaryLength = 80
+
+  [params.homeInfoParams]
+    Title = "你好 👋"
+    Content = "欢迎来到我的博客，这里记录我的想法、笔记与技术分享。"
+
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/"
+
+# Markdown 渲染
+[markup]
+  [markup.highlight]
+    style = "monokai"
+    lineNos = false
+    codeFences = true
+    guessSyntax = true
+    tabWidth = 2
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+# 启用搜索所需的 JSON 输出
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# 导航菜单
+[[menu.main]]
+  identifier = "search"
+  name = "搜索"
+  url = "/search/"
+  weight = 1
+[[menu.main]]
+  identifier = "archives"
+  name = "归档"
+  url = "/archives/"
+  weight = 5
+[[menu.main]]
+  identifier = "tags"
+  name = "标签"
+  url = "/tags/"
+  weight = 10
+[[menu.main]]
+  identifier = "about"
+  name = "关于"
+  url = "/about/"
+  weight = 15
