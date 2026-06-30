@@ -1,10 +1,10 @@
 # 站点基础配置
-# GitHub Pages 地址（用户名.github.io/仓库名/）
+# 自定义域名 dacheke.org（已绑定 GitHub Pages + CNAME）
 # 本地预览时 hugo server 会自动用 http://localhost:1313/，不受影响
-baseURL = "https://seabreeze7771.github.io/dacheke/"
+baseURL = "https://dacheke.org/"
 defaultContentLanguage = "zh-cn"
 locale = "zh-cn"
-title = "我的博客"
+title = "搭车客"
 theme = "PaperMod"
 [pagination]
   pagerSize = 10
@@ -22,13 +22,13 @@ enableGitInfo = true
 [params]
   env = "production"
   defaultTheme = "auto"
-  description = "记录想法、笔记与技术分享"
+  description = "一本个人的银河搭车指南 · 记录 AI、Media Buy 与路上的感悟"
   author = "dacheke"
-  # 首页“最新文章”列表的来源 section
-  mainSections = ["posts"]
+  # 首页"最新文章"列表的来源 section（四个板块）
+  mainSections = ["ai", "media-buy", "life", "toolbox"]
   # 文章页功能开关
   ShowReadingTime = true
-  ShowWordCount = true
+  ShowWordCount = false
   ShowBreadCrumbs = true
   ShowPostNavLinks = true
   ShowCodeCopyButtons = true
@@ -39,12 +39,15 @@ enableGitInfo = true
   summaryLength = 80
 
   [params.homeInfoParams]
-    Title = "你好 👋"
-    Content = "欢迎来到我的博客，这里记录我的想法、笔记与技术分享。"
+    Title = "搭车客"
+    Content = "**DON'T PANIC** — 一本个人的银河搭车指南。\n记录引擎（AI）、航线（Media Buy）、漫游（生活）与一路上攒下的工具。"
+
+  [params.footer]
+    text = "DON'T PANIC"
 
   [[params.socialIcons]]
     name = "github"
-    url = "https://github.com/"
+    url = "https://github.com/seabreeze7771"
 
 # Markdown 渲染
 [markup]
@@ -57,29 +60,46 @@ enableGitInfo = true
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
+  # GFM 风格告示块语法（> [!tip] / [!warning] / [!panic]）
+  [markup.goldmark.parser]
+    [markup.goldmark.parser.attribute]
+      title = true
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.typography]
+        disable = false
 
 # 启用搜索所需的 JSON 输出
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 
-# 导航菜单
+# 导航菜单 —— 四大板块
 [[menu.main]]
-  identifier = "search"
-  name = "搜索"
-  url = "/search/"
-  weight = 1
+  identifier = "ai"
+  name = "引擎手册"
+  url = "/ai/"
+  weight = 5
+[[menu.main]]
+  identifier = "media-buy"
+  name = "航行日志"
+  url = "/media-buy/"
+  weight = 10
+[[menu.main]]
+  identifier = "life"
+  name = "漫游札记"
+  url = "/life/"
+  weight = 15
+[[menu.main]]
+  identifier = "toolbox"
+  name = "工具箱"
+  url = "/toolbox/"
+  weight = 20
 [[menu.main]]
   identifier = "archives"
   name = "归档"
   url = "/archives/"
-  weight = 5
-[[menu.main]]
-  identifier = "tags"
-  name = "标签"
-  url = "/tags/"
-  weight = 10
+  weight = 25
 [[menu.main]]
   identifier = "about"
   name = "关于"
   url = "/about/"
-  weight = 15
+  weight = 30

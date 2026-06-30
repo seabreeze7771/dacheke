@@ -1,0 +1,25 @@
+{{- /* 搭车客：文章元信息，前面带板块符号 */ -}}
+{{- $scratch := newScratch -}}
+
+{{- /* 板块符号映射：用 .Section 取当前 section 名（根页面返回空，安全） */ -}}
+{{- $section := .Section -}}
+{{- $icons := dict "ai" "◆ 引擎手册" "media-buy" "▸ 航行日志" "life" "❋ 漫游札记" "toolbox" "▣ 工具箱" -}}
+{{- with index $icons $section -}}
+    {{- $scratch.Add "meta" (slice (printf "<span class='dacheke-section'>%s</span>" .)) -}}
+{{- end -}}
+
+{{- if not .Date.IsZero -}}
+    {{- $scratch.Add "meta" (slice (printf "<span title='%s'>%s</span>" (.Date) (.Date | time.Format "2006-01-02"))) -}}
+{{- end -}}
+
+{{- if (.Param "ShowReadingTime") -}}
+    {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime)))) -}}
+{{- end -}}
+
+{{- if (.Param "ShowWordCount") -}}
+    {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "words" .WordCount | default (printf "%d words" .WordCount)))) -}}
+{{- end -}}
+
+{{- with ($scratch.Get "meta") -}}
+    {{- delimit . "&nbsp;·&nbsp;" | safeHTML -}}
+{{- end -}}

@@ -1,0 +1,162 @@
+/* ============================================================
+   搭车客 · 自定义样式
+   暖黑深空配色 + 搭车客绿强调 + 中文阅读排版
+   ============================================================ */
+
+:root {
+  /* 搭车客绿 —— 全站唯一强调色 */
+  --dacheke-green: #3ddc97;
+  --dacheke-green-dim: #2fae79;
+
+  /* 告示块色 */
+  --dacheke-tip: #3ddc97;      /* 小提示 */
+  --dacheke-warn: #e0a84a;     /* 注意 */
+  --dacheke-panic: #e0564f;    /* 别慌 */
+}
+
+/* ---------- 暗色模式（主调） ---------- */
+html[data-theme="dark"] {
+  --theme: #1b1b1a;            /* 暖黑底 */
+  --entry: #222220;
+  --primary: #d8d4cc;          /* 暖白正文 */
+  --content: #d8d4cc;
+  --secondary: #9a958b;        /* 次要文字 */
+  --tertiary: #6b675f;
+  --border: #2e2e2c;
+  --code-bg: #161615;
+  --gap: 24px;
+}
+
+/* ---------- 亮色模式（纸张暖白） ---------- */
+html[data-theme="light"] {
+  --theme: #faf8f3;            /* 纸张暖白 */
+  --entry: #f3efe6;
+  --primary: #1f1d1a;          /* 墨黑 */
+  --content: #2a2825;
+  --secondary: #6b665c;
+  --tertiary: #9a958b;
+  --border: #e3ddcf;
+  --code-bg: #efe9dc;
+}
+
+/* ---------- 正文中文排版 ---------- */
+.post-content {
+  font-size: 1.02rem;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+  color: var(--content);
+}
+
+/* 行宽锁在舒适区 */
+.post-content p,
+.post-content li {
+  max-width: 70ch;
+}
+
+/* 标题克制 */
+.post-content h2 { font-size: 1.35rem; margin-top: 2.2em; }
+.post-content h3 { font-size: 1.12rem; margin-top: 1.8em; }
+
+/* ---------- 链接：唯一强调色 ---------- */
+.post-content a,
+.toc a:hover,
+.entry-title a:hover {
+  color: var(--dacheke-green);
+}
+
+.post-content a {
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--dacheke-green) 40%, transparent);
+  transition: border-color .15s;
+}
+.post-content a:hover {
+  border-bottom-color: var(--dacheke-green);
+}
+
+/* ---------- 首页 hero ---------- */
+.home-info .entry-header h1 {
+  font-size: 1.8rem;
+  letter-spacing: 0.05em;
+}
+.home-info .entry-content {
+  color: var(--secondary);
+  font-size: 0.98rem;
+}
+.home-info .entry-content strong {
+  color: var(--dacheke-green);
+  letter-spacing: 0.08em;
+}
+
+/* ---------- 文章列表项：日志流感 ---------- */
+.first-entry,
+.post-entry {
+  border-bottom: 1px solid var(--border);
+}
+
+/* ---------- 页脚 DON'T PANIC ---------- */
+.footer {
+  font-size: 0.82rem;
+  color: var(--tertiary);
+}
+.footer .dacheke-dontpanic {
+  letter-spacing: 0.2em;
+  color: var(--dacheke-green-dim);
+  font-weight: 600;
+}
+
+/* ---------- 代码块 ---------- */
+.post-content pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+/* ============================================================
+   告示块（admonition）
+   支持 GFM 语法：
+     > [!tip] 标题
+     > 内容
+   以及自定义：
+     > [!panic] 别慌
+   ============================================================ */
+.post-content .markdown-alert {
+  border-left: 3px solid var(--tertiary);
+  padding: 0.6em 1em;
+  margin: 1.4em 0;
+  border-radius: 0 4px 4px 0;
+  background: color-mix(in srgb, var(--entry) 60%, transparent);
+}
+.post-content .markdown-alert-title {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.markdown-alert-note,
+.markdown-alert-tip      { border-left-color: var(--dacheke-tip); }
+.markdown-alert-tip .markdown-alert-title    { color: var(--dacheke-tip); }
+.markdown-alert-warning  { border-left-color: var(--dacheke-warn); }
+.markdown-alert-warning .markdown-alert-title { color: var(--dacheke-warn); }
+.markdown-alert-caution,
+.markdown-alert-important { border-left-color: var(--dacheke-panic); }
+.markdown-alert-caution .markdown-alert-title,
+.markdown-alert-important .markdown-alert-title { color: var(--dacheke-panic); }
+
+/* 自定义 [!panic] 别慌 —— 致敬 DON'T PANIC */
+.markdown-alert-panic {
+  border-left-color: var(--dacheke-panic);
+  background: color-mix(in srgb, var(--dacheke-panic) 8%, transparent);
+}
+.markdown-alert-panic .markdown-alert-title { color: var(--dacheke-panic); }
+
+/* ---------- 404 ---------- */
+.not-found {
+  font-size: 6rem;
+  color: var(--dacheke-green-dim);
+  letter-spacing: 0.1em;
+}
+.not-found-text {
+  text-align: center;
+  color: var(--secondary);
+  margin-top: -1rem;
+  font-size: 0.95rem;
+}
