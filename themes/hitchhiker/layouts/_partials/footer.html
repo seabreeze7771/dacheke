@@ -1,0 +1,22 @@
+{{- /* 页脚：DON'T PANIC + 毛巾图标（点击随机台词） */ -}}
+{{- $hh := site.Params.hitchhiker | default (dict) -}}
+<footer class="site-footer">
+  <div class="page">
+    <span class="dontpanic">DON'T PANIC</span>
+    <span>
+      © {{ now.Year }} <a href="{{ "" | relLangURL }}">{{ site.Title }}</a>
+      <span class="towel-btn" id="towel-btn" tabindex="0" role="button" aria-label="毛巾" title="点一下毛巾">
+        🧖
+      </span>
+    </span>
+  </div>
+</footer>
+<div class="towel-quote" id="towel-quote" hidden></div>
+
+{{- /* 控制台彩蛋 + 毛巾台词数据 */ -}}
+<script>
+  window.__hh = {
+    greeting: {{ $hh.consoleGreeting | default "DON'T PANIC" | jsonify }},
+    towelQuotes: {{ $hh.towelQuotes | default (slice "别慌。") | jsonify }}
+  };
+</script>

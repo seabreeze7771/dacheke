@@ -1,0 +1,14 @@
+{{- /* 搭车客指南：渲染 GFM 告示块，扩展 [!panic] 别慌 类型 */ -}}
+{{- $t := .AlertType | lower -}}
+
+{{- if eq $t "" -}}
+<blockquote>{{ trim .Text "\n" }}</blockquote>
+{{- else -}}
+{{- $titles := dict "tip" "小提示" "note" "笔记" "warning" "注意" "caution" "别慌" "important" "重要" "panic" "别慌" -}}
+{{- $label := .AlertTitle -}}
+{{- if not $label -}}{{- $label = index $titles $t | default $t -}}{{- end -}}
+<div class="alert {{ $t }}">
+  <span class="alert-title">{{ $label }}</span>
+  {{ .Text }}
+</div>
+{{- end -}}

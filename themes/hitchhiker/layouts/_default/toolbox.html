@@ -1,0 +1,43 @@
+{{- define "main" }}
+
+{{- $tools := hugo.Data.tools | default slice -}}
+
+<div class="section-head">
+  <h2>{{ .Title }}</h2>
+  {{- with .Description }}
+  <p class="section-intro">{{ . | markdownify }}</p>
+  {{- end }}
+</div>
+
+{{- if .Content }}
+<div class="prose">{{ .Content }}</div>
+{{- end }}
+
+{{- /* 收集分类 */ -}}
+{{- $cats := slice -}}
+{{- range $tools -}}{{- with .category -}}{{- $cats = $cats | append . -}}{{- end -}}{{- end -}}
+{{- $cats = $cats | uniq -}}
+
+{{- if $cats }}
+<div class="tool-filters" id="tool-filters">
+  <button class="tool-filter is-active" data-cat="all">全部</button>
+  {{- range $cats -}}
+  <button class="tool-filter" data-cat="{{ . }}">{{ . }}</button>
+  {{- end -}}
+</div>
+{{- end }}
+
+<div class="tools-grid">
+  {{- range $tools }}
+  <a class="tool-card" data-cat="{{ .category | default "" }}" href="{{ .url }}" target="_blank" rel="noopener">
+    <span class="tool-icon">{{ .icon | default "🔧" }}</span>
+    <span class="tool-name">{{ .name }}</span>
+    <span class="tool-cat">{{ .category }}</span>
+    <span class="tool-desc">{{ .desc }}</span>
+  </a>
+  {{- else }}
+  <p style="color:var(--ink-2);padding:16px;grid-column:1/-1">工具箱还是空的。先上路，装备慢慢攒。</p>
+  {{- end }}
+</div>
+
+{{- end }}

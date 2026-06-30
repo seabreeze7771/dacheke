@@ -1,0 +1,37 @@
+{{- define "main" }}
+
+{{- $all := where site.RegularPages "Type" "in" site.Params.mainSections -}}
+{{- $all = where $all "Params.draft" "ne" true -}}
+{{- $all = sort $all "Date" "asc" -}}
+{{- $secCode := dict "ai" "ENG" "media-buy" "NAV" "life" "ROV" "toolbox" "TLB" -}}
+{{- $noMap := newScratch -}}
+{{- range $i, $p := $all -}}{{- $noMap.Set $p.RelPermalink (add $i 1) -}}{{- end -}}
+
+{{- /* 按年降序分组（用 Pages.GroupBy 方法） */ -}}
+{{- $byYear := sort ($all.GroupBy "Date" "2006") "Key" "desc" -}}
+
+<div class="section-head">
+  <h2>总目录</h2>
+  <p class="section-intro">全部条目，按星历年份归档。</p>
+</div>
+
+{{- range sort $byYear "Key" "desc" -}}
+<div class="section-head" style="margin-top:28px">
+  <h2 style="font-size:1.05rem;border-bottom:1px solid var(--rule);box-shadow:none">{{ .Key }} 年</h2>
+</div>
+<div class="toc-list">
+  {{- range sort .Pages "Date" "desc" -}}
+  {{- $no := $noMap.Get .RelPermalink -}}
+  <div class="toc-row">
+    <a class="toc-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    <span class="toc-leader"></span>
+    <span class="toc-meta">{{ .Date.Format "01.02" }} · {{ index $secCode .Section | default "GEN" }}</span>
+    <span class="toc-no">№{{ printf "%03d" $no }}</span>
+  </div>
+  {{- end -}}
+</div>
+{{- else -}}
+<p style="color:var(--ink-2);padding:12px 0">手册还是空白的。</p>
+{{- end -}}
+
+{{- end }}

@@ -1,0 +1,11 @@
+{{- define "main" }}
+<div class="notfound">
+  <div class="notfound-no">42</div>
+  <p class="notfound-text">
+    你找到了生命、宇宙与一切的终极答案，<br>
+    但没找到这一页。<br>
+    <span style="font-family:var(--font-mono);font-size:0.82rem;color:var(--ink-3)">—— 勘误：此条目不在手册内</span>
+  </p>
+  <a class="notfound-btn" href="{{ "" | relLangURL }}">不要恐慌，返回首页继续漫游 →</a>
+</div>
+{{- end }}

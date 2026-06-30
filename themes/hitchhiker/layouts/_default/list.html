@@ -1,0 +1,50 @@
+{{- define "main" }}
+
+{{- /* 全站编号映射（用于列表页显示条目号） */ -}}
+{{- $all := where site.RegularPages "Type" "in" site.Params.mainSections -}}
+{{- $all = where $all "Params.draft" "ne" true -}}
+{{- $all = sort $all "Date" "asc" -}}
+{{- $secCode := dict "ai" "ENG" "media-buy" "NAV" "life" "ROV" "toolbox" "TLB" -}}
+{{- $noMap := newScratch -}}
+{{- range $i, $p := $all -}}{{- $noMap.Set $p.RelPermalink (add $i 1) -}}{{- end -}}
+
+<div class="section-head">
+  <h2>{{ .Title }}</h2>
+  {{- with .Description }}
+  <p class="section-intro">{{ . | markdownify }}</p>
+  {{- end }}
+</div>
+
+{{- $pages := .Pages -}}
+{{- if .IsSection -}}
+  {{- $pages = where .RegularPages "Params.draft" "ne" true -}}
+{{- end -}}
+{{- $paginator := .Paginate $pages -}}
+
+<div class="toc-list">
+  {{- range $paginator.Pages -}}
+  {{- $no := $noMap.Get .RelPermalink -}}
+  <div class="toc-row">
+    <a class="toc-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    <span class="toc-leader"></span>
+    <span class="toc-meta">{{ .Date.Format "2006.01.02" }}</span>
+    <span class="toc-no">№{{ printf "%03d" $no }}</span>
+  </div>
+  {{- else -}}
+  <p style="color:var(--ink-2);padding:12px 0">这一章还是空白。先上路，记下第一条。</p>
+  {{- end -}}
+</div>
+
+{{- if gt $paginator.TotalPages 1 -}}
+<nav class="pagination">
+  {{- if $paginator.HasPrev -}}
+  <a href="{{ $paginator.Prev.URL | relURL }}">← 上一页</a>
+  {{- else -}}<span></span>{{- end -}}
+  <span style="color:var(--ink-3)">{{ $paginator.PageNumber }} / {{ $paginator.TotalPages }}</span>
+  {{- if $paginator.HasNext -}}
+  <a href="{{ $paginator.Next.URL | relURL }}">下一页 →</a>
+  {{- else -}}<span></span>{{- end -}}
+</nav>
+{{- end -}}
+
+{{- end }}

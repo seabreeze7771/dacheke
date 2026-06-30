@@ -1,0 +1,15 @@
+# 搭车客指南主题 hitchhiker
+# 油印手册风格 —— 米色纸 / 墨黑衬线 / 朱砂印章
+
+name = "hitchhiker"
+license = "MIT"
+licenselink = "https://github.com/seabreeze7771/dacheke/blob/main/LICENSE"
+description = "一本被翻烂的油印生存手册。致敬《银河系搭车客指南》。"
+homepage = "https://dacheke.org"
+tags = ["manual", "book", "minimal", "blog"]
+features = ["responsive", "toc", "rss"]
+min_version = "0.146.0"
+
+[author]
+  name = "dacheke"
+  homepage = "https://dacheke.org"

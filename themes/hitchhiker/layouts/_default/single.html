@@ -1,0 +1,84 @@
+{{- define "main" }}
+
+{{- /* 条目统一编号（全站按时间升序） */ -}}
+{{- $all := where site.RegularPages "Type" "in" site.Params.mainSections -}}
+{{- $all = where $all "Params.draft" "ne" true -}}
+{{- $all = sort $all "Date" "asc" -}}
+{{- $secCode := dict "ai" "ENG" "media-buy" "NAV" "life" "ROV" "toolbox" "TLB" -}}
+{{- $sec := .Section -}}
+{{- $no := 0 -}}
+{{- range $i, $p := $all -}}
+  {{- if eq $p.RelPermalink $.RelPermalink -}}{{- $no = add $i 1 -}}{{- end -}}
+{{- end -}}
+
+<article>
+  {{- /* 面包屑 */ -}}
+  <div class="breadcrumbs">
+    <a href="{{ "" | relLangURL }}">指南</a> /
+    {{- range site.Params.sections -}}
+      {{- if eq .id $sec -}}<a href="{{ printf "/%s/" .id | relLangURL }}">{{ .name }}</a>{{- end -}}
+    {{- end -}}
+  </div>
+
+  {{- /* 印章编号 */ -}}
+  <span class="entry-stamp">条目 №{{ printf "%03d" $no }} <span class="stamp-sec">· {{ index $secCode $sec | default "GEN" }}</span></span>
+
+  <h1 class="entry-title">{{ .Title }}</h1>
+  {{- with .Description }}
+  <p class="entry-summary">{{ . }}</p>
+  {{- end }}
+
+  <div class="entry-meta">
+    {{- partial "entry_meta.html" . -}}
+  </div>
+
+  {{- /* 目录 */ -}}
+  {{- if .TableOfContents -}}
+  <div class="toc-box">
+    <div class="toc-box-title">目 次</div>
+    {{ .TableOfContents }}
+  </div>
+  {{- end -}}
+
+  {{- /* 正文 */ -}}
+  <div class="prose">
+    {{ .Content }}
+  </div>
+
+  {{- /* 搭车客提示 */ -}}
+  {{- partial "tip.html" . -}}
+
+  {{- /* 页脚：标签 + 上下篇 */ -}}
+  <footer class="entry-footer">
+    {{- with .GetTerms "tags" }}
+    <div class="entry-tags">
+      {{- range . -}}
+      <a href="{{ .Permalink }}">#{{ .LinkTitle }}</a>
+      {{- end -}}
+    </div>
+    {{- end -}}
+
+    {{- if .Param "ShowPostNavLinks" -}}
+    {{- $prev := .PrevInSection -}}
+    {{- $next := .NextInSection -}}
+    <div class="entry-nav">
+      <div>
+        {{- if $next -}}
+        <span class="nav-label">← 上一条目</span>
+        <a href="{{ $next.Permalink }}">{{ $next.Title }}</a>
+        {{- end -}}
+      </div>
+      <div style="text-align:right">
+        {{- if $prev -}}
+        <span class="nav-label">下一条目 →</span>
+        <a href="{{ $prev.Permalink }}">{{ $prev.Title }}</a>
+        {{- end -}}
+      </div>
+    </div>
+    {{- end -}}
+  </footer>
+
+  {{- if site.Params.giscus.repo }}{{ partial "comments.html" . }}{{- end -}}
+</article>
+
+{{- end }}

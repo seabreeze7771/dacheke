@@ -1,0 +1,66 @@
+{{- define "main" }}
+
+{{- $hh := site.Params.hitchhiker | default (dict) -}}
+
+{{- /* 全站条目（按时间升序），用于统一编号 */ -}}
+{{- $all := where site.RegularPages "Type" "in" site.Params.mainSections -}}
+{{- $all = where $all "Params.draft" "ne" true -}}
+{{- $all = sort $all "Date" "asc" -}}
+{{- $noMap := newScratch -}}
+{{- range $i, $p := $all -}}
+  {{- $noMap.Set $p.RelPermalink (add $i 1) -}}
+{{- end -}}
+
+{{- /* 板块缩写映射 */ -}}
+{{- $secCode := dict "ai" "ENG" "media-buy" "NAV" "life" "ROV" "toolbox" "TLB" -}}
+
+{{/* ============ 封面 ============ */}}
+<section class="cover">
+  <div class="cover-frame">
+    <h1 class="cover-title">搭车客指南</h1>
+    <p class="cover-slogan"
+       data-slogans='{{ jsonify ($hh.slogans | default (slice "不 要 恐 慌")) }}'>
+      {{ index ($hh.slogans | default (slice "不 要 恐 慌")) 0 }}
+    </p>
+  </div>
+  <p class="cover-sub">记录 AI、流量与漫游的日常 · 致敬《银河系搭车客指南》</p>
+</section>
+
+{{/* ============ 四栏入口 ============ */}}
+<nav class="chapters">
+  {{- range site.Params.sections -}}
+  <a class="chapter" href="{{ printf "/%s/" .id | relLangURL }}">
+    <span class="chapter-icon">{{ .icon }}</span>
+    <span class="chapter-name">{{ .name }}</span>
+    <span class="chapter-sub">{{ .subtitle }}</span>
+    <span class="chapter-intro">{{ .intro }}</span>
+  </a>
+  {{- end -}}
+</nav>
+
+{{/* ============ 最新条目（点状目录） ============ */}}
+{{- $latest := first 8 (sort $all "Date" "desc") -}}
+<section class="section-head">
+  <h2>最新条目</h2>
+</section>
+
+<div class="toc-list">
+  {{- range $latest -}}
+  {{- $no := $noMap.Get .RelPermalink -}}
+  {{- $sec := .Section -}}
+  <div class="toc-row">
+    <a class="toc-title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+    <span class="toc-leader"></span>
+    <span class="toc-meta">{{ .Date.Format "01.02" }} · {{ (index $secCode $sec | default "GEN") }}</span>
+    <span class="toc-no">№{{ printf "%03d" $no }}</span>
+  </div>
+  {{- else -}}
+  <p style="color:var(--ink-2);padding:12px 0">手册还是空白的。带上毛巾，写下第一条吧。</p>
+  {{- end -}}
+</div>
+
+{{- if gt (len $all) 8 }}
+<p style="margin-top:18px;text-align:right"><a href="{{ "/archives/" | relLangURL }}" style="font-family:var(--font-mono);font-size:0.84rem">查阅全部目录 →</a></p>
+{{- end }}
+
+{{- end }}

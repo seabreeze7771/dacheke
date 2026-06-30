@@ -1,0 +1,11 @@
+{{- /* 站点头：标题 + 导航 */ -}}
+<header class="site-header">
+  <div class="page">
+    <p class="site-title"><a href="{{ "" | relLangURL }}">搭车客指南</a></p>
+    <nav class="site-nav">
+      {{- range site.Menus.main -}}
+      <a href="{{ .URL | relLangURL }}"{{ if $.IsMenuCurrent "main" . }} class="is-active"{{ end }}>{{ .Name }}</a>
+      {{- end -}}
+    </nav>
+  </div>
+</header>

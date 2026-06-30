@@ -1,0 +1,21 @@
+{{- /* 条目元信息：板块 · 日期 · 阅读时长(42字/秒梗) */ -}}
+{{- $hh := site.Params.hitchhiker | default (dict) -}}
+{{- $speed := $hh.readingSpeed | default 42 -}}
+
+{{- /* 板块名 */ -}}
+{{- $secName := "" -}}
+{{- range site.Params.sections -}}
+  {{- if eq .id $.Section -}}{{- $secName = .name -}}{{- end -}}
+{{- end -}}
+
+<span class="sec">{{ $secName }}</span>
+<span class="sep">·</span>
+<span>{{ .Date.Format "2006-01-02" }}</span>
+{{- with .ReadingTime }}
+<span class="sep">·</span>
+<span class="readtime" title="按搭车客标准阅读速度（{{ $speed }} 字/秒）估算">{{ . }} 分钟</span>
+{{- end }}
+{{- if .Param "ShowWordCount" }}
+<span class="sep">·</span>
+<span>{{ .WordCount }} 字</span>
+{{- end -}}

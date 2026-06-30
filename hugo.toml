@@ -5,9 +5,9 @@ baseURL = "https://dacheke.org/"
 defaultContentLanguage = "zh-cn"
 locale = "zh-cn"
 title = "搭车客指南"
-theme = "PaperMod"
+theme = "hitchhiker"
 [pagination]
-  pagerSize = 10
+  pagerSize = 20
 
 enableRobotsTXT = true
 enableEmoji = true
@@ -20,33 +20,23 @@ enableGitInfo = true
   lastmod = ["lastmod", ":git", "date"]
 
 [params]
-  env = "production"
-  defaultTheme = "auto"
   description = "不要恐慌，搭车穿越数字银河 · 记录 AI、流量与漫游的日常"
   author = "dacheke"
-  # 首页"最新文章"列表的来源 section（四个板块）
+  # 条目来源 section（四大板块）
   mainSections = ["ai", "media-buy", "life", "toolbox"]
   # 文章页功能开关
-  ShowReadingTime = true
   ShowWordCount = true
-  ShowBreadCrumbs = true
   ShowPostNavLinks = true
-  ShowCodeCopyButtons = true
-  ShowShareButtons = false
-  ShowToc = true
-  TocOpen = false
-  # 首页文章摘要字数
-  summaryLength = 80
 
   # ---------- 搭车客特色配置 ----------
   [params.hitchhiker]
-    # 首页随机副标题（每次刷新随机一条）
+    # 首页封面随机副标题（每次刷新随机一条）
     slogans = [
-      "不要恐慌，搭车穿越数字银河。",
-      "答案是 42，路上慢慢找。",
-      "永远知道你的毛巾在哪里。",
-      "飞船没造好，但路已经在了。",
-      "带上毛巾，上路。"
+      "不 要 恐 慌",
+      "答 案 是 42",
+      "永 远 知 道 你 的 毛 巾 在 哪 里",
+      "飞 船 没 造 好 但 路 已 经 在 了",
+      "带 上 毛 巾 上 路"
     ]
     # 阅读时长梗：搭车客标准阅读速度（字/秒）
     readingSpeed = 42
@@ -61,7 +51,7 @@ enableGitInfo = true
     # 控制台彩蛋（F12 可见）
     consoleGreeting = "DON'T PANIC\n欢迎来到搭车客指南 v1.0\n生命、宇宙与一切的终极答案：42"
 
-  # 四大板块元信息（首页卡片、栏目页头部共用）
+  # 四大板块元信息（首页卡片、栏目页头部、条目元信息共用）
   [[params.sections]]
     id = "ai"
     icon = "🚀"
@@ -87,15 +77,6 @@ enableGitInfo = true
     subtitle = "工具与资源"
     intro = "搭车客的随身装备，精选工具与资源。"
 
-  # 关闭 PaperMod 默认首页 hero（用自定义 index.html 代替）
-  # 保留 homeInfoParams 仅作 fallback，实际首页走 layouts/index.html
-  [params.homeInfoParams]
-    Title = "搭车客指南"
-    Content = "不要恐慌，搭车穿越数字银河。"
-
-  [params.footer]
-    text = "DON'T PANIC"
-
   [[params.socialIcons]]
     name = "github"
     url = "https://github.com/seabreeze7771"
@@ -109,13 +90,11 @@ enableGitInfo = true
     categoryId = ""                # giscus.app 生成
     theme = "preferred_color_scheme"
 
-  # 开启文章页评论（comments.html 已含沃贡诗歌彩蛋）
-  comments = true
-
 # Markdown 渲染
 [markup]
   [markup.highlight]
-    style = "monokai"
+    # 适合米色纸面的浅色高亮
+    style = "tango"
     lineNos = false
     codeFences = true
     guessSyntax = true
@@ -131,11 +110,12 @@ enableGitInfo = true
       [markup.goldmark.extensions.typography]
         disable = false
 
-# 启用搜索所需的 JSON 输出
+# 输出：HTML + RSS（无站内搜索，去掉 JSON）
 [outputs]
-  home = ["HTML", "RSS", "JSON"]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
 
-# 导航菜单 —— 四大板块
+# 导航菜单 —— 四大板块 + 归档 + 关于
 [[menu.main]]
   identifier = "ai"
   name = "引擎手册"
@@ -158,7 +138,7 @@ enableGitInfo = true
   weight = 20
 [[menu.main]]
   identifier = "archives"
-  name = "归档"
+  name = "总目录"
   url = "/archives/"
   weight = 25
 [[menu.main]]

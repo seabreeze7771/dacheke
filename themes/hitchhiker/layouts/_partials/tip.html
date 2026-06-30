@@ -1,0 +1,6 @@
+{{- /* 搭车客提示：用 front matter 的 tip 参数 */ -}}
+{{- with .Params.tip }}
+<div class="tip-box">
+  <div class="tip-body">{{ . | markdownify }}</div>
+</div>
+{{- end -}}
