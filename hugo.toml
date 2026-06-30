@@ -100,6 +100,18 @@ enableGitInfo = true
     name = "github"
     url = "https://github.com/seabreeze7771"
 
+  # ---------- Giscus 评论（需填写 repo / repoId / categoryId 后开启）----------
+  # 获取方式：https://giscus.app 选好仓库后复制配置
+  [params.giscus]
+    repo = ""                      # 例: "seabreeze7771/dacheke"
+    repoId = ""                    # giscus.app 生成
+    category = "Announcements"     # Discussions 分类名
+    categoryId = ""                # giscus.app 生成
+    theme = "preferred_color_scheme"
+
+  # 开启文章页评论（comments.html 已含沃贡诗歌彩蛋）
+  comments = true
+
 # Markdown 渲染
 [markup]
   [markup.highlight]

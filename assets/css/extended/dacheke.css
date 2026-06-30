@@ -332,6 +332,66 @@ body {
 }
 
 /* ============================================================
+   工具箱
+   ============================================================ */
+.hh-tool-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 24px 0 20px;
+}
+.hh-filter {
+  padding: 5px 14px;
+  font-size: 0.82rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--secondary);
+  cursor: pointer;
+  transition: all .12s;
+}
+.hh-filter:hover { border-color: var(--dacheke-green-dim); color: var(--dacheke-green); }
+.hh-filter.is-active {
+  background: var(--dacheke-green);
+  border-color: var(--dacheke-green);
+  color: var(--theme);
+}
+.hh-tools {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 14px;
+}
+.hh-tool-card {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 16px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  color: var(--content);
+  transition: transform .12s, border-color .12s;
+}
+.hh-tool-card:hover { transform: translateY(-2px); border-color: var(--dacheke-green-dim); }
+.hh-tool-icon { font-size: 1.5rem; line-height: 1; }
+.hh-tool-name { font-weight: 700; color: var(--primary); font-size: 1rem; }
+.hh-tool-cat { font-size: 0.7rem; color: var(--tertiary); font-family: var(--hh-mono); }
+.hh-tool-desc { font-size: 0.8rem; color: var(--secondary); line-height: 1.5; margin-top: 4px; }
+
+/* ============================================================
+   评论彩蛋
+   ============================================================ */
+.hh-comments { margin-top: 2.5em; }
+.hh-comments-egg {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--tertiary);
+  margin-bottom: 16px;
+  padding: 8px;
+  border-top: 1px dashed var(--border);
+  border-bottom: 1px dashed var(--border);
+}
+
+/* ============================================================
    响应式
    ============================================================ */
 @media (max-width: 768px) {

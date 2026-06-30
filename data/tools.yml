@@ -1,0 +1,50 @@
+# 搭车客工具箱 —— 新增工具只需编辑本文件，无需改代码
+# category 对应筛选标签；icon 用 emoji；url 跳转外链
+
+- name: Claude
+  category: AI 工具
+  icon: 🤖
+  desc: Anthropic 的 AI 助手，写作、编码、分析全能搭子。
+  url: https://claude.ai
+
+- name: ChatGPT
+  category: AI 工具
+  icon: 💬
+  desc: OpenAI 的对话模型，通用问答与生成。
+  url: https://chat.openai.com
+
+- name: Cursor
+  category: AI 工具
+  icon: ⌨️
+  desc: AI 原生代码编辑器，搭车客写代码的引擎。
+  url: https://cursor.sh
+
+- name: Meta Ads Manager
+  category: 投放工具
+  icon: 📊
+  desc: Facebook/Instagram 投放管理后台。
+  url: https://business.facebook.com/adsmanager
+
+- name: Google Ads
+  category: 投放工具
+  icon: 🔍
+  desc: Google 搜索与展示广告投放平台。
+  url: https://ads.google.com
+
+- name: SimilarWeb
+  category: 投放工具
+  icon: 🌐
+  desc: 竞品流量分析，摸清别人的航道。
+  url: https://similarweb.com
+
+- name: Notion
+  category: 效率工具
+  icon: 📝
+  desc: 笔记与知识库，搭车客的电子手册。
+  url: https://notion.so
+
+- name: Hugo
+  category: 效率工具
+  icon: ⚡
+  desc: 本站构建引擎，最快的静态站点生成器。
+  url: https://gohugo.io

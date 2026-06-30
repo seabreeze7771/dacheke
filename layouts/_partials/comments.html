@@ -1,0 +1,26 @@
+{{- /* 搭车客：Giscus 评论 + 沃贡诗歌彩蛋 */ -}}
+{{- $g := site.Params.giscus | default (dict) -}}
+
+{{- if $g.repo }}
+<div class="hh-comments">
+  <p class="hh-comments-egg">请文明留言，沃贡诗歌禁止入内。🛸</p>
+  <script src="https://giscus.app/client.js"
+          data-repo="{{ $g.repo }}"
+          data-repo-id="{{ $g.repoId }}"
+          data-category="{{ $g.category | default "Announcements" }}"
+          data-category-id="{{ $g.categoryId }}"
+          data-mapping="pathname"
+          data-strict="0"
+          data-reactions-enabled="1"
+          data-emit-metadata="0"
+          data-input-position="top"
+          data-theme="{{ $g.theme | default "preferred_color_scheme" }}"
+          data-lang="zh-CN"
+          data-loading="lazy"
+          crossorigin="anonymous"
+          async>
+  </script>
+</div>
+{{- else }}
+{{- /* 未配置 Giscus：静默，不输出 */ -}}
+{{- end }}

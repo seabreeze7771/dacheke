@@ -1,0 +1,61 @@
+{{- define "main" }}
+
+{{- $tools := site.Data.tools | default slice }}
+
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>{{ .Title }}</h1>
+  {{- with .Description }}
+  <div class="post-description">{{ . | markdownify }}</div>
+  {{- end }}
+</header>
+
+{{- if .Content }}
+<div class="post-content md-content">{{ .Content }}</div>
+{{- end }}
+
+{{- /* 收集所有分类 */}}
+{{- $cats := slice }}
+{{- range $tools }}{{ with .category }}{{ $cats = $cats | append . }}{{ end }}{{ end }}
+{{- $cats = $cats | uniq }}
+
+{{- if $cats }}
+<div class="hh-tool-filters">
+  <button class="hh-filter is-active" data-cat="all">全部</button>
+  {{- range $cats }}
+  <button class="hh-filter" data-cat="{{ . }}">{{ . }}</button>
+  {{- end }}
+</div>
+{{- end }}
+
+<div class="hh-tools">
+  {{- range $tools }}
+  <a class="hh-tool-card" data-cat="{{ .category | default "" }}" href="{{ .url }}" target="_blank" rel="noopener">
+    <span class="hh-tool-icon">{{ .icon | default "🔧" }}</span>
+    <span class="hh-tool-name">{{ .name }}</span>
+    <span class="hh-tool-cat">{{ .category }}</span>
+    <span class="hh-tool-desc">{{ .desc }}</span>
+  </a>
+  {{- else }}
+  <p class="hh-empty">工具箱还是空的。先上路，装备慢慢攒。</p>
+  {{- end }}
+</div>
+
+<script>
+(function () {
+  var btns = document.querySelectorAll('.hh-filter');
+  var cards = document.querySelectorAll('.hh-tool-card');
+  btns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var cat = btn.getAttribute('data-cat');
+      btns.forEach(function (b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+      cards.forEach(function (c) {
+        c.style.display = (cat === 'all' || c.getAttribute('data-cat') === cat) ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+
+{{- end }}
