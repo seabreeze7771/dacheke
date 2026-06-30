@@ -23,6 +23,8 @@ enableGitInfo = true
   defaultTheme = "auto"
   description = "记录想法、笔记与技术分享"
   author = "dacheke"
+  # 首页“最新文章”列表的来源 section
+  mainSections = ["posts"]
   # 文章页功能开关
   ShowReadingTime = true
   ShowWordCount = true
