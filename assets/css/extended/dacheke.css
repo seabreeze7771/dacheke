@@ -1,136 +1,210 @@
 /* ============================================================
-   搭车客 · 自定义样式
-   暖黑深空配色 + 搭车客绿强调 + 中文阅读排版
+   搭车客指南 · 自定义样式
+   暖黑深空 + 搭车客绿 + 手册感（直角、粗粝、阅读优先）
    ============================================================ */
 
 :root {
-  /* 搭车客绿 —— 全站唯一强调色 */
   --dacheke-green: #3ddc97;
   --dacheke-green-dim: #2fae79;
-
-  /* 告示块色 */
-  --dacheke-tip: #3ddc97;      /* 小提示 */
-  --dacheke-warn: #e0a84a;     /* 注意 */
-  --dacheke-panic: #e0564f;    /* 别慌 */
+  --dacheke-tip: #3ddc97;
+  --dacheke-warn: #e0a84a;
+  --dacheke-panic: #e0564f;
+  --hh-mono: ui-monospace, "SFMono-Regular", "Cascadia Code", Consolas, monospace;
 }
 
-/* ---------- 暗色模式（主调） ---------- */
+/* ---------- 暗色（主调：暖黑深空） ---------- */
 html[data-theme="dark"] {
-  --theme: #1b1b1a;            /* 暖黑底 */
-  --entry: #222220;
-  --primary: #d8d4cc;          /* 暖白正文 */
-  --content: #d8d4cc;
-  --secondary: #9a958b;        /* 次要文字 */
-  --tertiary: #6b675f;
-  --border: #2e2e2c;
-  --code-bg: #161615;
+  --theme: #14150f;            /* 深空暖黑 */
+  --entry: #1c1d16;
+  --primary: #e4e0d4;          /* 暖白正文 */
+  --content: #d8d4c8;
+  --secondary: #8f8b7e;
+  --tertiary: #5e5b50;
+  --border: #2a2b22;
+  --code-bg: #0f1009;
   --gap: 24px;
 }
 
-/* ---------- 亮色模式（纸张暖白） ---------- */
+/* ---------- 亮色（纸张暖白） ---------- */
 html[data-theme="light"] {
-  --theme: #faf8f3;            /* 纸张暖白 */
-  --entry: #f3efe6;
-  --primary: #1f1d1a;          /* 墨黑 */
-  --content: #2a2825;
-  --secondary: #6b665c;
+  --theme: #f6f2e7;
+  --entry: #efe9d8;
+  --primary: #1c1a14;
+  --content: #2a2820;
+  --secondary: #6b6657;
   --tertiary: #9a958b;
-  --border: #e3ddcf;
-  --code-bg: #efe9dc;
+  --border: #ddd5bf;
+  --code-bg: #ece4d0;
 }
 
-/* ---------- 正文中文排版 ---------- */
+body {
+  background: var(--theme);
+}
+
+/* 全局：直角、手册感 */
+.main {
+  border-left: 1px solid var(--border);
+  padding-left: 0;
+}
+
+/* ============================================================
+   首页 Hero
+   ============================================================ */
+.hh-hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 56px 8px 40px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.hh-hero-text { flex: 1; }
+.hh-hero-title {
+  font-size: 2.6rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin: 0 0 12px;
+  color: var(--primary);
+}
+.hh-hero-slogan {
+  font-size: 1.15rem;
+  color: var(--dacheke-green);
+  font-weight: 600;
+  margin: 0 0 6px;
+}
+.hh-hero-sub {
+  font-size: 0.9rem;
+  color: var(--secondary);
+  margin: 0;
+}
+.hh-hero-towel {
+  color: var(--tertiary);
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+/* ============================================================
+   四板块卡片
+   ============================================================ */
+.hh-sections {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  padding: 28px 8px;
+  border-bottom: 1px solid var(--border);
+}
+.hh-section-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 18px 16px;
+  background: var(--entry);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--dacheke-green);
+  text-decoration: none;
+  color: var(--content);
+  transition: transform .12s, border-color .12s;
+}
+.hh-section-card:hover {
+  transform: translateY(-2px);
+  border-left-color: var(--primary);
+}
+.hh-section-icon { font-size: 1.6rem; line-height: 1; }
+.hh-section-name { font-weight: 700; font-size: 1.02rem; color: var(--primary); }
+.hh-section-sub { font-size: 0.72rem; color: var(--tertiary); font-family: var(--hh-mono); letter-spacing: 0.05em; }
+.hh-section-intro { font-size: 0.82rem; color: var(--secondary); margin-top: 4px; line-height: 1.5; }
+
+/* ============================================================
+   最新航行日志
+   ============================================================ */
+.hh-latest { padding: 28px 8px 40px; }
+.hh-latest-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--border);
+}
+.hh-entry { border-bottom: 1px solid var(--border); }
+.hh-entry-link {
+  display: block;
+  padding: 14px 4px;
+  text-decoration: none;
+  color: var(--content);
+}
+.hh-entry-link:hover .hh-entry-title { color: var(--dacheke-green); }
+.hh-entry-title {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 4px;
+}
+.hh-entry-summary {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--secondary);
+  line-height: 1.55;
+  margin-bottom: 6px;
+  max-width: 70ch;
+}
+.hh-entry-meta { font-size: 0.75rem; color: var(--tertiary); }
+.hh-empty { color: var(--secondary); padding: 20px 4px; }
+.hh-latest-more { margin-top: 18px; text-align: right; }
+.hh-latest-more a { color: var(--dacheke-green); font-size: 0.88rem; }
+
+/* ============================================================
+   正文排版（手册阅读感）
+   ============================================================ */
 .post-content {
   font-size: 1.02rem;
   line-height: 1.85;
   letter-spacing: 0.01em;
   color: var(--content);
 }
-
-/* 行宽锁在舒适区 */
 .post-content p,
-.post-content li {
-  max-width: 70ch;
-}
-
-/* 标题克制 */
-.post-content h2 { font-size: 1.35rem; margin-top: 2.2em; }
+.post-content li { max-width: 70ch; }
+.post-content h2 { font-size: 1.35rem; margin-top: 2.2em; border-bottom: 1px solid var(--border); padding-bottom: 0.3em; }
 .post-content h3 { font-size: 1.12rem; margin-top: 1.8em; }
 
-/* ---------- 链接：唯一强调色 ---------- */
+/* 链接：搭车客绿 */
 .post-content a,
-.toc a:hover,
 .entry-title a:hover {
   color: var(--dacheke-green);
 }
-
 .post-content a {
   text-decoration: none;
   border-bottom: 1px solid color-mix(in srgb, var(--dacheke-green) 40%, transparent);
   transition: border-color .15s;
 }
-.post-content a:hover {
-  border-bottom-color: var(--dacheke-green);
-}
+.post-content a:hover { border-bottom-color: var(--dacheke-green); }
 
-/* ---------- 首页 hero ---------- */
-.home-info .entry-header h1 {
-  font-size: 1.8rem;
-  letter-spacing: 0.05em;
-}
-.home-info .entry-content {
-  color: var(--secondary);
-  font-size: 0.98rem;
-}
-.home-info .entry-content strong {
-  color: var(--dacheke-green);
-  letter-spacing: 0.08em;
-}
-
-/* ---------- 文章列表项：日志流感 ---------- */
-.first-entry,
-.post-entry {
-  border-bottom: 1px solid var(--border);
-}
-
-/* ---------- 页脚 DON'T PANIC ---------- */
-.footer {
-  font-size: 0.82rem;
-  color: var(--tertiary);
-}
-.footer .dacheke-dontpanic {
-  letter-spacing: 0.2em;
-  color: var(--dacheke-green-dim);
-  font-weight: 600;
-}
-
-/* ---------- 代码块 ---------- */
+/* 代码块 */
 .post-content pre {
   background: var(--code-bg);
   border: 1px solid var(--border);
-  border-radius: 6px;
+  border-radius: 0;
+  border-left: 3px solid var(--dacheke-green-dim);
 }
 
 /* ============================================================
-   告示块（admonition）
-   支持 GFM 语法：
-     > [!tip] 标题
-     > 内容
-   以及自定义：
-     > [!panic] 别慌
+   文章元信息行（板块符号）
+   ============================================================ */
+.dacheke-section { color: var(--dacheke-green-dim); font-weight: 600; }
+
+/* ============================================================
+   告示块
    ============================================================ */
 .post-content .markdown-alert {
   border-left: 3px solid var(--tertiary);
   padding: 0.6em 1em;
   margin: 1.4em 0;
-  border-radius: 0 4px 4px 0;
+  border-radius: 0;
   background: color-mix(in srgb, var(--entry) 60%, transparent);
 }
-.post-content .markdown-alert-title {
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
+.post-content .markdown-alert-title { font-weight: 600; letter-spacing: 0.04em; }
 .markdown-alert-note,
 .markdown-alert-tip      { border-left-color: var(--dacheke-tip); }
 .markdown-alert-tip .markdown-alert-title    { color: var(--dacheke-tip); }
@@ -140,23 +214,65 @@ html[data-theme="light"] {
 .markdown-alert-important { border-left-color: var(--dacheke-panic); }
 .markdown-alert-caution .markdown-alert-title,
 .markdown-alert-important .markdown-alert-title { color: var(--dacheke-panic); }
-
-/* 自定义 [!panic] 别慌 —— 致敬 DON'T PANIC */
 .markdown-alert-panic {
   border-left-color: var(--dacheke-panic);
-  background: color-mix(in srgb, var(--dacheke-panic) 8%, transparent);
+  background: color-mix(in srgb, var(--dacheke-panic) 10%, transparent);
 }
 .markdown-alert-panic .markdown-alert-title { color: var(--dacheke-panic); }
 
-/* ---------- 404 ---------- */
+/* ============================================================
+   页脚
+   ============================================================ */
+.footer { font-size: 0.82rem; color: var(--tertiary); }
+.footer .dacheke-dontpanic {
+  letter-spacing: 0.2em;
+  color: var(--dacheke-green-dim);
+  font-weight: 600;
+}
+.hh-towel-btn {
+  display: inline-flex;
+  vertical-align: middle;
+  margin-left: 8px;
+  cursor: pointer;
+  color: var(--tertiary);
+}
+.hh-towel-btn:hover { color: var(--dacheke-green); }
+.hh-towel-quote {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--entry);
+  border: 1px solid var(--dacheke-green-dim);
+  border-left: 3px solid var(--dacheke-green);
+  color: var(--primary);
+  padding: 10px 18px;
+  font-size: 0.9rem;
+  z-index: 999;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  max-width: 80vw;
+  text-align: center;
+}
+
+/* ============================================================
+   404
+   ============================================================ */
 .not-found {
   font-size: 6rem;
   color: var(--dacheke-green-dim);
   letter-spacing: 0.1em;
 }
-.not-found-text {
-  text-align: center;
-  color: var(--secondary);
-  margin-top: -1rem;
-  font-size: 0.95rem;
+.not-found-text { text-align: center; color: var(--secondary); margin-top: -1rem; font-size: 0.95rem; }
+
+/* ============================================================
+   响应式
+   ============================================================ */
+@media (max-width: 768px) {
+  .hh-hero { flex-direction: column; align-items: flex-start; padding: 36px 8px 28px; }
+  .hh-hero-towel { display: none; }
+  .hh-sections { grid-template-columns: 1fr 1fr; }
+  .hh-hero-title { font-size: 2rem; }
+}
+@media (max-width: 480px) {
+  .hh-sections { grid-template-columns: 1fr; }
 }

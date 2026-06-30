@@ -4,7 +4,7 @@
 baseURL = "https://dacheke.org/"
 defaultContentLanguage = "zh-cn"
 locale = "zh-cn"
-title = "搭车客"
+title = "搭车客指南"
 theme = "PaperMod"
 [pagination]
   pagerSize = 10
@@ -22,13 +22,13 @@ enableGitInfo = true
 [params]
   env = "production"
   defaultTheme = "auto"
-  description = "一本个人的银河搭车指南 · 记录 AI、Media Buy 与路上的感悟"
+  description = "不要恐慌，搭车穿越数字银河 · 记录 AI、流量与漫游的日常"
   author = "dacheke"
   # 首页"最新文章"列表的来源 section（四个板块）
   mainSections = ["ai", "media-buy", "life", "toolbox"]
   # 文章页功能开关
   ShowReadingTime = true
-  ShowWordCount = false
+  ShowWordCount = true
   ShowBreadCrumbs = true
   ShowPostNavLinks = true
   ShowCodeCopyButtons = true
@@ -38,9 +38,60 @@ enableGitInfo = true
   # 首页文章摘要字数
   summaryLength = 80
 
+  # ---------- 搭车客特色配置 ----------
+  [params.hitchhiker]
+    # 首页随机副标题（每次刷新随机一条）
+    slogans = [
+      "不要恐慌，搭车穿越数字银河。",
+      "答案是 42，路上慢慢找。",
+      "永远知道你的毛巾在哪里。",
+      "飞船没造好，但路已经在了。",
+      "带上毛巾，上路。"
+    ]
+    # 阅读时长梗：搭车客标准阅读速度（字/秒）
+    readingSpeed = 42
+    # 页脚毛巾点击随机台词
+    towelQuotes = [
+      "永远知道你的毛巾在哪里。",
+      "一条毛巾，是搭车客能拥有的最有用的东西。",
+      "别慌。",
+      "42。",
+      "飞得越高，摔得越想飞。"
+    ]
+    # 控制台彩蛋（F12 可见）
+    consoleGreeting = "DON'T PANIC\n欢迎来到搭车客指南 v1.0\n生命、宇宙与一切的终极答案：42"
+
+  # 四大板块元信息（首页卡片、栏目页头部共用）
+  [[params.sections]]
+    id = "ai"
+    icon = "🚀"
+    name = "引擎手册"
+    subtitle = "AI"
+    intro = "无限不可能引擎操作手册，用 AI 撬动效率边界。"
+  [[params.sections]]
+    id = "media-buy"
+    icon = "🛰️"
+    name = "航道攻略"
+    subtitle = "Media Buy"
+    intro = "数字世界的流量航道图，记录投放、套利与踩坑。"
+  [[params.sections]]
+    id = "life"
+    icon = "🌌"
+    name = "漫游札记"
+    subtitle = "生活感悟"
+    intro = "星际旅途的见闻与思考，答案在路上。"
+  [[params.sections]]
+    id = "toolbox"
+    icon = "🧰"
+    name = "搭车工具箱"
+    subtitle = "工具与资源"
+    intro = "搭车客的随身装备，精选工具与资源。"
+
+  # 关闭 PaperMod 默认首页 hero（用自定义 index.html 代替）
+  # 保留 homeInfoParams 仅作 fallback，实际首页走 layouts/index.html
   [params.homeInfoParams]
-    Title = "搭车客"
-    Content = "**DON'T PANIC** — 一本个人的银河搭车指南。\n记录引擎（AI）、航线（Media Buy）、漫游（生活）与一路上攒下的工具。"
+    Title = "搭车客指南"
+    Content = "不要恐慌，搭车穿越数字银河。"
 
   [params.footer]
     text = "DON'T PANIC"
@@ -80,7 +131,7 @@ enableGitInfo = true
   weight = 5
 [[menu.main]]
   identifier = "media-buy"
-  name = "航行日志"
+  name = "航道攻略"
   url = "/media-buy/"
   weight = 10
 [[menu.main]]

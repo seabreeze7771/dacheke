@@ -1,11 +1,12 @@
-{{- /* 搭车客：文章元信息，前面带板块符号 */ -}}
+{{- /* 搭车客：文章元信息，前面带板块图标+名称（从 site.Params.sections 动态匹配） */ -}}
 {{- $scratch := newScratch -}}
 
-{{- /* 板块符号映射：用 .Section 取当前 section 名（根页面返回空，安全） */ -}}
 {{- $section := .Section -}}
-{{- $icons := dict "ai" "◆ 引擎手册" "media-buy" "▸ 航行日志" "life" "❋ 漫游札记" "toolbox" "▣ 工具箱" -}}
-{{- with index $icons $section -}}
-    {{- $scratch.Add "meta" (slice (printf "<span class='dacheke-section'>%s</span>" .)) -}}
+{{- range $s := site.Params.sections -}}
+    {{- if eq $s.id $section -}}
+        {{- $label := printf "%s %s" $s.icon $s.name -}}
+        {{- $scratch.Add "meta" (slice (printf "<span class='dacheke-section'>%s</span>" $label)) -}}
+    {{- end -}}
 {{- end -}}
 
 {{- if not .Date.IsZero -}}
@@ -13,7 +14,9 @@
 {{- end -}}
 
 {{- if (.Param "ShowReadingTime") -}}
-    {{- $scratch.Add "meta" (slice (printf "<span>%s</span>" (i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime)))) -}}
+    {{- $speed := site.Params.hitchhiker.readingSpeed | default 42 -}}
+    {{- $rt := i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime) -}}
+    {{- $scratch.Add "meta" (slice (printf "<span class='hh-readtime' title='按搭车客标准阅读速度（%d 字/秒）估算'>%s</span>" $speed $rt)) -}}
 {{- end -}}
 
 {{- if (.Param "ShowWordCount") -}}

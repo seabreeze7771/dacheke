@@ -1,2 +1,49 @@
-{{- /* 搭车客：页脚 DON'T PANIC 装饰 */ -}}
+{{- /* 搭车客：页脚 DON'T PANIC + 毛巾图标 + 控制台彩蛋 + 首页随机 slogan */ -}}
+{{- $hh := site.Params.hitchhiker | default (dict) -}}
+
 <span class="dacheke-dontpanic">DON'T PANIC</span>
+
+{{- /* 毛巾图标：点击随机弹出台词 */}}
+<span class="hh-towel-btn" title="点一下毛巾" tabindex="0" role="button" aria-label="毛巾">
+  <svg width="18" height="18" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <rect x="24" y="30" width="72" height="60" rx="3" stroke="currentColor" stroke-width="6"/>
+    <path d="M24 50h72M24 70h72" stroke="currentColor" stroke-width="4" stroke-dasharray="6 6"/>
+  </svg>
+</span>
+<div class="hh-towel-quote" hidden></div>
+
+<script>
+(function () {
+  // 控制台彩蛋
+  var greeting = {{ $hh.consoleGreeting | default "DON'T PANIC" | jsonify }};
+  if (greeting) console.log("%c" + greeting, "color:#3ddc97;font-weight:bold;");
+
+  // 首页随机 slogan
+  var sloganEl = document.querySelector('.hh-hero-slogan[data-slogans]');
+  if (sloganEl) {
+    try {
+      var arr = JSON.parse(sloganEl.getAttribute('data-slogans'));
+      if (Array.isArray(arr) && arr.length) {
+        sloganEl.textContent = arr[Math.floor(Math.random() * arr.length)];
+      }
+    } catch (e) {}
+  }
+
+  // 毛巾台词
+  var quotes = {{ $hh.towelQuotes | default (slice "别慌。") | jsonify }};
+  var btn = document.querySelector('.hh-towel-btn');
+  var box = document.querySelector('.hh-towel-quote');
+  if (btn && box) {
+    var t;
+    var show = function () {
+      var q = quotes[Math.floor(Math.random() * quotes.length)];
+      box.textContent = q;
+      box.hidden = false;
+      clearTimeout(t);
+      t = setTimeout(function () { box.hidden = true; }, 3000);
+    };
+    btn.addEventListener('click', show);
+    btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(); } });
+  }
+})();
+</script>
